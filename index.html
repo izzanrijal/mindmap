@@ -437,27 +437,27 @@
   
   var _jm = null;
 
-  function get_def_options() {
+function get_def_options() {
     var def_options = {
       container: "jsmind_container",
       theme: "asphalt",
       editable: true,
-      support_html: false,
+      support_html: true, // Changed this from false to true
       view: {
         node_overflow: "wrap",
         engine: "svg",
-          draggable: true,
-	    line_width:3, 
+        draggable: true,
+        line_width:3, 
       },
 
-	layout: {
-	    hspace: 40,
-	    vspace: 10,
-	    pspace: 20,
-	},
+      layout: {
+        hspace: 40,
+        vspace: 10,
+        pspace: 20,
+      },
     };
-      return def_options;
-  }
+    return def_options;
+}
 
   function get_def_mind() {
     var mind = {
@@ -1759,7 +1759,7 @@
       );
       const lastMessage = document.getElementById("chat-messages").lastChild;
       const response = await chatGPTRequest(prompt, curNode);
-      lastMessage.innerText = "gpt-message:\n" + response;
+      lastMessage.textContent = "gpt-message:\n" + response;
     }
     scrollToBottom();
   }
@@ -1773,9 +1773,10 @@
     const chatMessages = document.getElementById("chat-messages");
     const messageDiv = document.createElement("div");
     messageDiv.className = sender;
-    messageDiv.innerText = message;
+    messageDiv.innerHTML = message; // Use innerHTML instead of textContent
     chatMessages.appendChild(messageDiv);
     scrollToBottom();
+  }
   }
 
   // Draggable
@@ -1839,7 +1840,7 @@
     displayChatMessage("gpt-message", "..thinking..");
     const lastMessage = document.getElementById("chat-messages").lastChild;
     const response = await chatGPTRequest(prompt_prefix + message, curNode);
-    lastMessage.innerText = "gpt-message:\n" + response;
+    lastMessage.textContent = "gpt-message:\n" + response;
   }
 </script>
 
